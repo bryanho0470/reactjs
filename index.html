@@ -22,32 +22,21 @@
   <script type="text/babel">
     const root = document.getElementById("root");
 
-    function Title() {
-      return (
-        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-          Hello I'm a title
-        </h3>
-      );
-    }
+    let counter = 0;
 
-    function Button() {
-      return (
-        <button
-          style={{ backgroundColor: "tomato" }}
-          onClick={() => console.log("I'm clicked")}
-        >
-          CLick me
-        </button>
-      );
+    const countUp = () => ((counter = counter + 1), render());
+
+    function render() {
+      ReactDOM.createRoot(root).render(<Container />);
     }
 
     const Container = () => (
       <div>
-        <Title />
-        <Button />
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={countUp}>Click me</button>
       </div>
     );
 
-    ReactDOM.createRoot(root).render(<Container />);
+    render();
   </script>
 </html>
