@@ -41,13 +41,13 @@
       );
     }
 
-    const Container = (
+    const Container = () => (
       <div>
         <Title />
         <Button />
       </div>
     );
 
-    ReactDOM.createRoot(root).render(Container);
+    ReactDOM.createRoot(root).render(<Container />);
   </script>
 </html>
