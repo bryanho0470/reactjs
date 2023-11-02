@@ -46,7 +46,7 @@
               id="minutes"
               placeholder="Minutes"
               type="number"
-              disabled={flipped === false}
+              disabled={flipped}
             />
           </div>
 
@@ -58,7 +58,7 @@
               id="hours"
               placeholder="Hours"
               type="number"
-              disabled={flipped === true}
+              disabled={!flipped}
             />
           </div>
           <button onClick={reset}>Reset</button>
