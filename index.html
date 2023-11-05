@@ -83,9 +83,9 @@
       return (
         <div>
           <div>
-            <label htmlFor="minutes"> Minutes </label>
+            <label htmlFor="minutes"> Kilometer </label>
             <input
-              value={inverted ? amount * 60 : amount}
+              value={inverted ? amount * 1.61 : amount}
               onChange={onChange}
               id="minutes"
               placeholder="Minutes"
@@ -95,54 +95,9 @@
           </div>
 
           <div>
-            <label htmlFor="hours"> Hours </label>
+            <label htmlFor="hours"> Miles </label>
             <input
-              value={inverted ? amount : Math.round(amount / 60)}
-              onChange={onChange}
-              id="hours"
-              placeholder="Hours"
-              type="number"
-              disabled={!inverted}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>
-            {inverted ? "Want to input minutes" : "Want to input hours"}
-          </button>
-        </div>
-      );
-    }
-    function ToHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => {
-        setAmount(0);
-      };
-      const onFlip = () => {
-        setInverted((current) => !current);
-        reset();
-      };
-      return (
-        <div>
-          <div>
-            <label htmlFor="minutes"> Minutes </label>
-            <input
-              value={inverted ? amount * 60 : amount}
-              onChange={onChange}
-              id="minutes"
-              placeholder="Minutes"
-              type="number"
-              disabled={inverted}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="hours"> Hours </label>
-            <input
-              value={inverted ? amount : Math.round(amount / 60)}
+              value={inverted ? amount : Math.round(amount / 1.61)}
               onChange={onChange}
               id="hours"
               placeholder="Hours"
@@ -159,7 +114,7 @@
     }
 
     function App() {
-      const [index, setIndex] = React.useState("0");
+      const [index, setIndex] = React.useState("blank");
       const listChanged = (event) => {
         setIndex(event.target.value);
       };
@@ -169,11 +124,15 @@
             <h1>Super Converter</h1>
             <hr />
             <select value={index} onChange={listChanged}>
+              <option value="blank">Please select a Converter</option>
               <option value="0">Minutes & Hours</option>
               <option value="1">Km & Miles</option>
             </select>
-            {index === "0" ? <MinutesToHours /> : null}
-            {index === "1" ? <KmToMiles /> : null}
+            <div>
+              {index === "blank" ? "What do yo want to convert?" : null}
+              {index === "0" ? <MinutesToHours /> : null}
+              {index === "1" ? <KmToMiles /> : null}
+            </div>
           </div>
         </div>
       );
