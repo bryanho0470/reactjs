@@ -18,6 +18,7 @@
     crossorigin
     src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
   ></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     function Btn({ text, onClick }) {
@@ -38,6 +39,11 @@
       );
     }
 
+    Btn.propTypes = {
+      text: PropTypes.string,
+      fontSize: PropTypes.number,
+    };
+
     function App() {
       const [value, setValue] = React.useState("Save Change");
       const onChanges = () => setValue("Revert Change");
@@ -45,7 +51,7 @@
       return (
         <div>
           <Btn text={value} onClick={onChanges} />
-          <Btn text="Confirm" />
+          <Btn text="haha" />
         </div>
       );
     }
