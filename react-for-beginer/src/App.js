@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 
 function Hello() {
-  useEffect(() => {
+  function byHello() {
+    console.log("Destroyed :(");
+  }
+  function showHello() {
     console.log("Created :)");
-    return () => console.log("Destroyed :(");
-  }, []);
+    return byHello;
+  }
+  useEffect(showHello, []);
   return <h1>Hello!</h1>;
 }
 
