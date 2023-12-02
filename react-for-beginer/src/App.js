@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [toDo, setTodo] = useState("");
-  const [toDos, setTodos] = useState([]);
-  const onChange = (event) => setTodo(event.target.value);
-  const onSubmit = (event) => {
-    event.preventDefault();
-    if (toDo === "") {
-      return;
-    }
-    setTodos((currentArray) => [toDo, ...currentArray]);
-    setTodo("");
-  };
+  const [loading, setLoding] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((reponse) => reponse.json())
+      .then((json) => {
+        setCoins(json);
+        setLoding(false);
+      });
+  }, []); // blanked array mean this useEffect will be excuted just one time.
   return (
     <div>
-      <h1>My to do ({toDos.length})</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          value={toDo}
-          type="text"
-          placeholder="Wrtite your to do.."
-        />
-        <button>Add todo</button>
-      </form>
-      <hr />
-      {toDos.map((item, index) => ( <li key={index}>{item}</li>))}
+      <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
+      {loading ? (
+        <strong>Loading......</strong>
+      ) : (
+        <select>
+          {coins.map((coin) => (
+            <option>
+              {coin.name} ({coin.symbol}) : ${coin.quotes.USD.price} USD
+            </option>
+          ))}
+        </select>
+      )}
+      ;
     </div>
   );
 }
